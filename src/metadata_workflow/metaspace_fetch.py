@@ -134,7 +134,7 @@ class metaspaceFetch():
                            "Maldi Matrix","Growth Conditions","Polarity",
                            "Resolving Power","Pixel Size","MZ Value",
                            "MALDI Matrix Application","Sample Stabilisation",
-                           "Solvent","Tissue Modification",
+                           "Solvent","Tissue Modification","Adduct Data",
                            "Additional Information"]
             
             return pd.concat([pd.DataFrame([[
@@ -160,6 +160,7 @@ class metaspaceFetch():
                                          self.get_dataset_sample_stabilisation(dataset),
                                          self.get_dataset_solvent(dataset),
                                          self.get_dataset_tissue_modification(dataset),
+                                         self.get_dataset_adduct_data(dataset),
                                          self.get_dataset_additionalinfo(dataset)
                                          ]],
                                          columns= column_List) for dataset in list_of_datasets],
@@ -169,7 +170,19 @@ class metaspaceFetch():
         else:
             return pd.DataFrame()
         
+    
+    def get_dataset_adduct_data(ds)
+    
+        annotations = ds.annotations(database=22, fdr=0.20)  # get a list of all annotations for a given database and FDR level
 
+        # calculate what you need
+        dataA = {}
+        for molecule, adduct in annotations:
+            adducts = dataA.get(molecule, [])
+            adducts.append(adduct)
+            dataA[molecule] = adducts
+        return dataA
+    
     def filter_metadata(self,
                         df: pd.DataFrame(),
                         adducts: list = None,
