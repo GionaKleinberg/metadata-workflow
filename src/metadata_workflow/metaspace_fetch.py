@@ -51,7 +51,8 @@ class metaspaceFetch():
                          ionisation_Source: str = None,
                          analyzer_Type: str = None,
                          maldi_Matrix: str = None,
-                         organism: str = None): 
+                         organism: str = None,
+                         optical_Images: bool = False): 
         '''
         Call METASPACE API function "datasets", search METASPACE website by the 
         given arguments, return searched datasets as a list.
@@ -88,6 +89,9 @@ class metaspaceFetch():
         organism : str, optional
             Search datasets by organism. 
             The default is None.
+        optical_Images : bool, optional
+            True if you want to download optical images
+            The default is False.
     
         Returns
         -------
@@ -161,6 +165,7 @@ class metaspaceFetch():
                                          self.get_dataset_solvent(dataset),
                                          self.get_dataset_tissue_modification(dataset),
                                          self.get_dataset_adduct_data(dataset),
+                                         dataset.optical_images()
                                          self.get_dataset_additionalinfo(dataset)
                                          ]],
                                          columns= column_List) for dataset in list_of_datasets],
